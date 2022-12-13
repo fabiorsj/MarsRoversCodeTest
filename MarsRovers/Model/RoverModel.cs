@@ -9,6 +9,7 @@ namespace MarsRovers.Model
     public class RoverModel
     {
         public Position InitialPosition { get; set; } = new Position();
+        public Position CurrentPosition { get; set; } = new Position();
         public string Instructions { get; set; } = string.Empty;
     }
 }

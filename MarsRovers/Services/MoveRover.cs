@@ -6,29 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarsRovers
+namespace MarsRovers.Services
 {
     public class MoveRover : IMoveRover
     {
         public Position MoveTo(Position currentPosition, string facingDirection)
         {
-
+            var result = currentPosition;
             switch (facingDirection)
             {
                 case "N":
-                    currentPosition.Y += 1;
+                    result.Y += 1;
                     break;
                 case "E":
-                    currentPosition.X += 1;
+                    result.X += 1;
                     break;
                 case "S":
-                    currentPosition.Y -= 1;
+                    result.Y -= 1;
                     break;
                 case "W":
-                    currentPosition.X -= 1;
+                    result.X -= 1;
                     break;
             }
-            return currentPosition;
+            return result;
         }
     }
 }

@@ -1,11 +1,23 @@
 ﻿using MarsRovers;
+using MarsRovers.Contracts;
 using MarsRovers.Model;
+using MarsRovers.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Net.WebSockets;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        IServiceCollection services = new ServiceCollection();
+
+        Startup startup = new Startup();
+        startup.ConfigureServices(services);
+
+        IServiceProvider serviceProvider = services.BuildServiceProvider();
+
+        var processInstructions = serviceProvider.GetRequiredService<IProcessInstructions>();
         Console.WriteLine("Inform the size of the area(Example 5 5)");
         var size = Console.ReadLine();
         var rovers = new List<RoverModel>();
@@ -17,37 +29,25 @@ internal class Program
             Console.WriteLine("Inform the rover's instructions(Example: RRMLLMLLLM) ");
             var instructions = Console.ReadLine();
 
-            string[] positions = initialPosition.Split(' ');
+            string[] positions = initialPosition!.Split(' ');
             var x = Convert.ToInt32(positions[0]);
             var y = Convert.ToInt32(positions[1]);
-            rovers.Add(new RoverModel() { InitialPosition = new Position() { X = x, Y = y, Heading = positions[2] }, Instructions = instructions }); ;
+            var heading = positions[2];
+            rovers.Add(new RoverModel() { InitialPosition = new Position() { X = x, Y = y, Heading = heading }, Instructions = instructions! }); ;
 
             Console.WriteLine("Add more rovers? y/n");
             var answer = Console.ReadLine();
-            if (answer == "n")
+            if (answer != "y")
             {
                 break;
             }
         }
-        Compass comp = new Compass();
-        MoveRover move = new MoveRover();
         foreach (var rover in rovers)
         {
-            var heading = rover.InitialPosition.Heading;
-            var position = rover.InitialPosition;
-            foreach (var inst in rover.Instructions)
-            {
-
-                if (inst.Equals('M'))
-                {
-                    position = move.MoveTo(position, heading);
-                }
-                if (inst.Equals('L') || inst.Equals('R'))
-                {
-                    heading = comp.TurnTo(inst.ToString(), heading);
-                }
-            }
-            Console.WriteLine($"{position.X} {position.Y} {heading}");
+            var result = processInstructions.Process(rover);
+            var position = result.CurrentPosition;
+            Console.WriteLine($"{position.X} {position.Y} {position.Heading}");
+            Console.Read();
         }
     }
 }
