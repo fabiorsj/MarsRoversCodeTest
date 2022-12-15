@@ -11,7 +11,7 @@ namespace MarsRovers.Tests
         public void ShouldReturnX1()
         {
             var moveTo = new MoveRover();
-            var result = moveTo.MoveTo(new Model.Position() { X = 2, Y = 3}, "W");
+            var result = moveTo.MoveTo(new Model.Position() { X = 2, Y = 3 }, "W");
 
             Assert.Equal(1, result.X);
         }

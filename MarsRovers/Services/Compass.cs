@@ -22,7 +22,9 @@ namespace MarsRovers.Services
             var currentCardinalIndex = Array.IndexOf(Constants.CardinalPoints, currentDirection);
 
             //if left get previous, if right get next
-            var turnToIndex = turnToDirection.Equals(Constants.Left) ? currentCardinalIndex - 1 : currentCardinalIndex + 1;
+            var turnToIndex = turnToDirection.Equals(Constants.Left)
+                ? currentCardinalIndex - 1
+                : currentCardinalIndex + 1;
 
             //if out of bounds, get first
             if (turnToIndex > Constants.CardinalPoints.Length - 1)

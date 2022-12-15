@@ -14,6 +14,7 @@ namespace MarsRovers.Tests
 
             Assert.Equal("E", result);
         }
+
         [Fact]
         public void ShouldReturnSouth()
         {
@@ -22,6 +23,7 @@ namespace MarsRovers.Tests
 
             Assert.Equal("S", result);
         }
+
         [Fact]
         public void ShouldReturnWest()
         {
@@ -30,6 +32,7 @@ namespace MarsRovers.Tests
 
             Assert.Equal("W", result);
         }
+
         [Fact]
         public void ShouldReturnNorth()
         {

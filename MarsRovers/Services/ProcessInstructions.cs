@@ -18,22 +18,31 @@ public class ProcessInstructions : IProcessInstructions
         _moveRover = moveRover;
     }
 
-    public RoverModel Process(RoverModel rover)
+    public List<string> Process(RoverWrapper modelWrapper)
     {
-        RoverModel result = rover;
-        result.CurrentPosition = rover.InitialPosition;
-        foreach (var inst in rover.Instructions)
+        foreach (var model in modelWrapper.Rovers)
         {
-            if (inst.Equals(Constants.Move))
+            RoverModel result = model;
+            result.CurrentPosition = model.InitialPosition;
+            foreach (var inst in model.Instructions)
             {
-                result.CurrentPosition = _moveRover.MoveTo(result.CurrentPosition, result.CurrentPosition.Heading);
-            }
-            if (inst.Equals(Constants.Left) || inst.Equals(Constants.Right))
-            {
-                result.CurrentPosition.Heading = _compass.TurnTo(inst.ToString(), result.CurrentPosition.Heading);
+                if (inst.Equals(Constants.Move))
+                {
+                    result.CurrentPosition = _moveRover.MoveTo(
+                        result.CurrentPosition,
+                        result.CurrentPosition.Heading
+                    );
+                }
+                if (inst.Equals(Constants.Left) || inst.Equals(Constants.Right))
+                {
+                    result.CurrentPosition.Heading = _compass.TurnTo(
+                        inst.ToString(),
+                        result.CurrentPosition.Heading
+                    );
+                }
             }
         }
-        return rover;
-    }
 
+        return result;
+    }
 }
