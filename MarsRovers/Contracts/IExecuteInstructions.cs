@@ -1,14 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MarsRovers.Model;
 
 namespace MarsRovers.Contracts
 {
-    public interface IProcessRovers
+    public interface IExecuteInstructions
     {
-        RoverWrapper Process(RoverWrapper model);
+        RoverModel Execute(Position MaxArea, RoverModel roverModel);
     }
 }

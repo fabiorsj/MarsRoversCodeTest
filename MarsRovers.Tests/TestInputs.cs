@@ -1,13 +1,13 @@
-﻿using MarsRovers.Contracts;
-using MarsRovers.Model;
-using MarsRovers.Services;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using MarsRovers.Contracts;
+using MarsRovers.Model;
+using MarsRovers.Services;
+using Moq;
 
 namespace MarsRovers.Tests
 {
@@ -30,15 +30,18 @@ namespace MarsRovers.Tests
                 Heading = Heading
             };
             rover.CurrentPosition = rover.InitialPosition;
+
             var mockCompass = new Compass();
             var mockRoverMove = new MoveRover();
-            ProcessInstructions process = new ProcessInstructions(mockCompass, mockRoverMove);
-            var result = process.Process(rover);
+            Position MaxArea = new Position() { X = 4, Y = 4 };
+            ExecuteInstructions process = new ExecuteInstructions(mockCompass, mockRoverMove);
+            var result = process.Execute(MaxArea, rover);
 
-            Assert.Equal(
-                "1 3 N",
-                $"{result.CurrentPosition.X} {result.CurrentPosition.Y} {result.CurrentPosition.Heading}"
-            );
+            Assert.False(result.IsOutOfLimits);
+            Assert.Equal(result.CurrentPosition.X, 1);
+            Assert.Equal(result.CurrentPosition.Y, 3);
+            Assert.Equal(result.CurrentPosition.Heading, Constants.North);
+
         }
     }
 }

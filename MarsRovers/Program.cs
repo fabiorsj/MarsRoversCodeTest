@@ -17,7 +17,7 @@ internal class Program
 
         IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-        var processInstructions = serviceProvider.GetRequiredService<IProcessInstructions>();
+        var processInstructions = serviceProvider.GetRequiredService<IProcessRovers>();
         var size = new Position();
 
         //get area size
@@ -93,13 +93,22 @@ internal class Program
                 break;
             }
         }
-        foreach (var rover in rovers)
+        RoverWrapper model = new RoverWrapper();
+        model.MaxArea = size;
+        model.Rovers = rovers;
+        //process the inputs
+        var result = processInstructions.Process(model);
+        foreach (var item in result.Rovers)
         {
-            var result = processInstructions.Process(rover);
-            var position = result.CurrentPosition;
-            Console.WriteLine($"{position.X} {position.Y} {position.Heading}");
-            Console.Read();
+            var position = item.CurrentPosition;
+            var stringResult = $"{position.X} {position.Y} {position.Heading}";
+            string IsOutOfLimits = string.Empty;
+            if (item.IsOutOfLimits)
+                IsOutOfLimits =
+                    "Execution did not complete because the rover reached the area limit";
+            Console.WriteLine($"{stringResult}{IsOutOfLimits}");
         }
+        Console.Read();
     }
 
     private static Position GetSize(string input)

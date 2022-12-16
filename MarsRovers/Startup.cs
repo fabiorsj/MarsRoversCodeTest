@@ -14,7 +14,8 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services
-            .AddScoped<IProcessInstructions, ProcessInstructions>()
+            .AddScoped<IProcessRovers, ProcessRovers>()
+            .AddScoped<IExecuteInstructions, ExecuteInstructions>()
             .AddScoped<ICompass, Compass>()
             .AddScoped<IMoveRover, MoveRover>();
     }

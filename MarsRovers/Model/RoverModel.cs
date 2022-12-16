@@ -11,5 +11,6 @@ namespace MarsRovers.Model
         public Position InitialPosition { get; set; } = new Position();
         public Position CurrentPosition { get; set; } = new Position();
         public string Instructions { get; set; } = string.Empty;
+        public bool IsOutOfLimits { get; set; } = false;
     }
 }
