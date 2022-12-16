@@ -14,17 +14,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "testando",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "run",
-                "--project",
-                "./MarsRovers/MarsRovers.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "publish",
             "command": "dotnet",
             "type": "process",
@@ -47,6 +36,24 @@
                 "MarsRovers.csproject"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "dependsOn": [],
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "./MarsRovers.Tests/MarsRovers.Tests.csproj",
+                "/p:CollectCoverage=true",
+                "/p:CoverletOutputFormat=lcov",
+                "/p:CoverletOutput=./lcov.info"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
         }
     ]
 }

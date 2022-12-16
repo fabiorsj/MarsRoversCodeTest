@@ -39,9 +39,9 @@ namespace MarsRovers.Services
 
         public static bool ValidateInstructions(string instructions)
         {
-            char[] allowed = new char[] { Constants.Left, Constants.Right, Constants.Move };
+           List<string> allowed = new List<string>() { Constants.Left, Constants.Right, Constants.Move };
             return !string.IsNullOrEmpty(instructions)
-                && !instructions.Any(x => !allowed.Contains(x));
+                && !instructions.Any(x => !allowed.Contains(x.ToString()));
         }
     }
 }

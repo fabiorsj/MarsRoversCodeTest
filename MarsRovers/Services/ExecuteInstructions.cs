@@ -22,18 +22,18 @@ namespace MarsRovers.Services
         {
             var result = roverModel;
             result.CurrentPosition = result.InitialPosition;
-            foreach (var inst in result.Instructions)
+            foreach (var inst in result.Instructions.ToArray())
             {
                 switch (inst)
                 {
-                    case char value when value == Constants.Move:
+                    case var value when value.ToString() == Constants.Move:
                         result.CurrentPosition = _moveRover.MoveTo(
                             result.CurrentPosition,
                             result.CurrentPosition.Heading
                         );
                         break;
 
-                    case char value when (value == Constants.Left || value == Constants.Right):
+                    case var value when (value.ToString() == Constants.Left || value.ToString() == Constants.Right):
                         result.CurrentPosition.Heading = _compass.TurnTo(
                             inst.ToString(),
                             result.CurrentPosition.Heading

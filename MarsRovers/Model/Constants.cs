@@ -16,8 +16,8 @@ namespace MarsRovers.Model
         public static readonly string[] CardinalPoints = new string[] { North, East, South, West };
 
         // move and turn instructions
-        public static readonly char Left = 'L';
-        public static readonly char Right = 'R';
-        public static readonly char Move = 'M';
+        public static readonly string Left = "L";
+        public static readonly string Right = "R";
+        public static readonly string Move = "M";
     }
 }

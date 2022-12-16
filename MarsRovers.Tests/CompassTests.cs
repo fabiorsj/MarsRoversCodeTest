@@ -1,4 +1,5 @@
 using MarsRovers.Contracts;
+using MarsRovers.Model;
 using MarsRovers.Services;
 using Moq;
 
@@ -10,7 +11,7 @@ namespace MarsRovers.Tests
         public void ShouldReturnEast()
         {
             var compass = new Compass();
-            var result = compass.TurnTo("R", "N");
+            var result = compass.TurnTo(Constants.Right, Constants.North);
 
             Assert.Equal("E", result);
         }
@@ -19,7 +20,7 @@ namespace MarsRovers.Tests
         public void ShouldReturnSouth()
         {
             var compass = new Compass();
-            var result = compass.TurnTo("R", "E");
+            var result = compass.TurnTo(Constants.Right, "E");
 
             Assert.Equal("S", result);
         }
@@ -28,18 +29,18 @@ namespace MarsRovers.Tests
         public void ShouldReturnWest()
         {
             var compass = new Compass();
-            var result = compass.TurnTo("R", "S");
+            var result = compass.TurnTo(Constants.Right, "S");
 
-            Assert.Equal("W", result);
+            Assert.Equal(Constants.West, result);
         }
 
         [Fact]
         public void ShouldReturnNorth()
         {
             var compass = new Compass();
-            var result = compass.TurnTo("R", "W");
+            var result = compass.TurnTo(Constants.Right, Constants.West);
 
-            Assert.Equal("N", result);
+            Assert.Equal(Constants.North, result);
         }
     }
 }
