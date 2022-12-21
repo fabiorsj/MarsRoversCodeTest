@@ -26,7 +26,7 @@ namespace MarsRovers.Services
         /// <returns></returns>
         public static bool ValidateInitialPositionInput(Position size, Position initialPosition)
         {
-            return (initialPosition.X > 0 && initialPosition.Y > 0)
+            return (initialPosition.X >= 0 && initialPosition.Y >= 0)
                 && (initialPosition.X <= size.X && initialPosition.Y <= size.Y)
                 && (Constants.CardinalPoints.Contains(initialPosition.Heading));
         }
