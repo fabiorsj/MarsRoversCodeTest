@@ -20,7 +20,7 @@ namespace MarsRovers.Tests
         public void ShouldReturnSouth()
         {
             var compass = new Compass();
-            var result = compass.TurnTo(Constants.Right, "E");
+            var result = compass.TurnTo(Constants.Right, Constants.East);
 
             Assert.Equal("S", result);
         }
@@ -29,7 +29,7 @@ namespace MarsRovers.Tests
         public void ShouldReturnWest()
         {
             var compass = new Compass();
-            var result = compass.TurnTo(Constants.Right, "S");
+            var result = compass.TurnTo(Constants.Right, Constants.South);
 
             Assert.Equal(Constants.West, result);
         }
